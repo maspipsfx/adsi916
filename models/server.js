@@ -3,6 +3,7 @@ import express from "express";
 //const express =require("cors")
 import cors from "cors";
 import { dbConnection } from "../database/config.js";
+import persona from "../routes/persona.js"
 
 class Server {
   constructor() {
@@ -10,6 +11,7 @@ class Server {
     this.middlewares();
     this.port=process.env.PORT;
     this.connectarBd()
+    this.routes()
   }
   middlewares() {
     this.app.use(express.json());
@@ -19,6 +21,10 @@ class Server {
 
   async connectarBd(){
     await dbConnection()
+  }
+
+  routes(){
+    this.app.use( "/api/persona"   ,  persona   )
   }
 
   escuchar() {
